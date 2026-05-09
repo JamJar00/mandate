@@ -16,9 +16,7 @@ class AddAiInstructionFix(CheckFix):
 
     @property
     def success_message(self):
-        return (
-            "Created agents.md from template. You should edit it to describe agent behavior, constraints, and contact points."
-        )
+        return "Created agents.md from template. You should edit it to describe agent behavior, constraints, and contact points."
 
     @property
     def failure_message(self):
@@ -72,7 +70,7 @@ class AiInstructionCheckProvider(CheckProvider):
             "# Build and Test Commands",
             "# Code Style Guidelines",
             "# Testing Instructions",
-            "# Security Considerations"
+            "# Security Considerations",
         ]
 
         try:

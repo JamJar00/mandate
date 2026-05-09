@@ -12,7 +12,9 @@ class AddIssueTemplateFix(CheckFix):
         os.makedirs(os.path.join(directory, ".github/ISSUE_TEMPLATE"), exist_ok=True)
         with open(os.path.join(directory, ".github/ISSUE_TEMPLATE/bug.md"), "w") as f:
             f.write(
-                mandate.template_util.template("bug_report_issue_template.md", directory)
+                mandate.template_util.template(
+                    "bug_report_issue_template.md", directory
+                )
             )
         with open(
             os.path.join(directory, ".github/ISSUE_TEMPLATE/feature_request.md"), "w"
@@ -46,7 +48,9 @@ class AddPullRequestTemplateFix(CheckFix):
         with open(
             os.path.join(directory, ".github/pull_request_template.md"), "w"
         ) as f:
-            f.write(mandate.template_util.template("pull_request_template.md", directory))
+            f.write(
+                mandate.template_util.template("pull_request_template.md", directory)
+            )
         return True
 
     @property

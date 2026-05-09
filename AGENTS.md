@@ -10,9 +10,10 @@ When adding a new check it must also be added to `src/mandate/check_providers/__
 ## Build and Test Commands
 - Run commands withing poetry, e.g. `poetry run pytest`
 - When new checks are added the output of `poetry run generate_docs` should be added to the `README.md` file to ensure documentation is up to date
+- Code can be formatted using `poetry run black --preview .`
 
 ## Code Style Guidelines
-- Prefer double quotes to single quotes
+Follow the style guidelines black uses
 
 ## Testing Instructions
 Always generate tests for new check providers. Run them once you have generated new tests

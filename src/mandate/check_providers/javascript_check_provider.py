@@ -38,7 +38,9 @@ class JavascriptCheckProvider(CheckProvider):
         return "Javascript"
 
     def test(self, directory):
-        package_jsons = list(mandate.util.find_files_with_name(directory, "package.json"))
+        package_jsons = list(
+            mandate.util.find_files_with_name(directory, "package.json")
+        )
 
         try:
             repo = Repo(directory, search_parent_directories=True)
