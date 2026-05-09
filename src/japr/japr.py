@@ -236,14 +236,26 @@ class Japr:
                     )
                 start = time.time()
 
+        # Exclude suppressed checks from score calculation so the score reflects only active checks
         sev_bad_checks = sum(
             check.severity.value
             for (result, check, _) in issues
-            if result.result == Result.FAILED
-            or result.result == Result.PRE_REQUISITE_CHECK_FAILED
+            if result.id not in suppressed_checks
+            and (
+                result.result == Result.FAILED
+                or result.result == Result.PRE_REQUISITE_CHECK_FAILED
+            )
         )
-        sev_all_checks = sum(check.severity.value for (_, check, _) in issues)
-        score = int(5 - sev_bad_checks / sev_all_checks * 5)
+        sev_all_checks = sum(
+            check.severity.value
+            for (result, check, _) in issues
+            if result.id not in suppressed_checks
+        )
+        # If there are no active checks, default to a perfect score
+        if sev_all_checks == 0:
+            score = 5
+        else:
+            score = int(5 - sev_bad_checks / sev_all_checks * 5)
 
         passed = len(
             [
