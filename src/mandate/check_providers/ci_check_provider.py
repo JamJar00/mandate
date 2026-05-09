@@ -1,4 +1,4 @@
-from japr.check import Check, CheckProvider, CheckResult, Result, Severity
+from mandate.check import Check, CheckProvider, CheckResult, Result, Severity
 import os
 
 

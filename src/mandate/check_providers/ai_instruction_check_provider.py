@@ -1,6 +1,6 @@
-from japr.check import Check, CheckProvider, CheckResult, Result, Severity, CheckFix
-import japr.util
-import japr.template_util
+from mandate.check import Check, CheckProvider, CheckResult, Result, Severity, CheckFix
+import mandate.util
+import mandate.template_util
 import os
 
 
@@ -9,7 +9,7 @@ class AddAiInstructionFix(CheckFix):
         path = os.path.join(directory, "agents.md")
         try:
             with open(path, "w", encoding="utf-8") as f:
-                f.write(japr.template_util.template("ai_instructions.md", directory))
+                f.write(mandate.template_util.template("ai_instructions.md", directory))
             return True
         except Exception:
             return False
@@ -50,7 +50,7 @@ class AiInstructionCheckProvider(CheckProvider):
 
         if not found_path:
             for b in basenames:
-                matches = list(japr.util.find_files_with_name(directory, b))
+                matches = list(mandate.util.find_files_with_name(directory, b))
                 if matches:
                     found_path = os.path.join(directory, matches[0])
                     break

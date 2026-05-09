@@ -1,8 +1,8 @@
-from japr.check import Check, CheckProvider, CheckFix, CheckResult, Result, Severity
+from mandate.check import Check, CheckProvider, CheckFix, CheckResult, Result, Severity
 from git import InvalidGitRepositoryError
 from git.repo import Repo
-import japr.template_util
-import japr.util
+import mandate.template_util
+import mandate.util
 import os
 import yaml
 
@@ -12,13 +12,13 @@ class AddIssueTemplateFix(CheckFix):
         os.makedirs(os.path.join(directory, ".github/ISSUE_TEMPLATE"), exist_ok=True)
         with open(os.path.join(directory, ".github/ISSUE_TEMPLATE/bug.md"), "w") as f:
             f.write(
-                japr.template_util.template("bug_report_issue_template.md", directory)
+                mandate.template_util.template("bug_report_issue_template.md", directory)
             )
         with open(
             os.path.join(directory, ".github/ISSUE_TEMPLATE/feature_request.md"), "w"
         ) as f:
             f.write(
-                japr.template_util.template(
+                mandate.template_util.template(
                     "feature_request_issue_template.md", directory
                 )
             )
@@ -46,7 +46,7 @@ class AddPullRequestTemplateFix(CheckFix):
         with open(
             os.path.join(directory, ".github/pull_request_template.md"), "w"
         ) as f:
-            f.write(japr.template_util.template("pull_request_template.md", directory))
+            f.write(mandate.template_util.template("pull_request_template.md", directory))
         return True
 
     @property
@@ -133,7 +133,7 @@ class GitHubCheckProvider(CheckProvider):
 
         has_workflow_job = False
         if os.path.isdir(os.path.join(directory, ".github", "workflows")):
-            workflows = japr.util.find_files_with_extensions(
+            workflows = mandate.util.find_files_with_extensions(
                 os.path.join(directory, ".github", "workflows"), ["yaml", "yml"]
             )
 
@@ -185,7 +185,7 @@ See https://docs.github.com/en/communities/using-templates-to-encourage-useful-i
                 Severity.HIGH,
                 ["open-source", "inner-source", "team", "personal"],
                 "GitHub Actions workflows should have timeouts set",
-                """Workflows for GitHub Actions must have timeouts set to avoid hefty charges getting incurred by stuck jobs. By default, the timeout is 6h which is lmost always unecessary
+                """Workflows for GitHub Actions must have timeouts set to avoid hefty charges getting incurred by stuck jobs. By default, the timeout is 6h which is almost always unecessary
 
                 Add the timeout-minutes property to your job
                 See https://docs.github.com/en/actions/writing-workflows/workflow-syntax-for-github-actions#jobsjob_idtimeout-minutes""",

@@ -1,5 +1,5 @@
-from japr.check import Check, CheckProvider, CheckResult, Result, Severity
-import japr.util
+from mandate.check import Check, CheckProvider, CheckResult, Result, Severity
+import mandate.util
 from git import InvalidGitRepositoryError
 from git.repo import Repo
 import toml
@@ -61,14 +61,14 @@ class PythonCheckProvider(CheckProvider):
 
     def test(self, directory):
         requirements_txts = list(
-            japr.util.find_files_with_name(directory, "requirements.txt")
+            mandate.util.find_files_with_name(directory, "requirements.txt")
         )
         pyproject_tomls = list(
-            japr.util.find_files_with_name(directory, "pyproject.toml")
+            mandate.util.find_files_with_name(directory, "pyproject.toml")
         )
-        pipfiles = list(japr.util.find_files_with_name(directory, "Pipfile"))
-        setup_pys = list(japr.util.find_files_with_name(directory, "setup.py"))
-        setup_cfgs = list(japr.util.find_files_with_name(directory, "setup.cfg"))
+        pipfiles = list(mandate.util.find_files_with_name(directory, "Pipfile"))
+        setup_pys = list(mandate.util.find_files_with_name(directory, "setup.py"))
+        setup_cfgs = list(mandate.util.find_files_with_name(directory, "setup.cfg"))
 
         try:
             repo = Repo(directory, search_parent_directories=True)

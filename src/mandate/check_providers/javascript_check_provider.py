@@ -1,5 +1,5 @@
-from japr.check import Check, CheckProvider, CheckResult, Result, Severity
-import japr.util
+from mandate.check import Check, CheckProvider, CheckResult, Result, Severity
+import mandate.util
 from git import InvalidGitRepositoryError
 from git.repo import Repo
 import os
@@ -38,7 +38,7 @@ class JavascriptCheckProvider(CheckProvider):
         return "Javascript"
 
     def test(self, directory):
-        package_jsons = list(japr.util.find_files_with_name(directory, "package.json"))
+        package_jsons = list(mandate.util.find_files_with_name(directory, "package.json"))
 
         try:
             repo = Repo(directory, search_parent_directories=True)

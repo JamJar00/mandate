@@ -3,9 +3,9 @@
 ## Project Overview
 This project is a linter that checks project setup to ensure good quality foundations. It checks things like whether language-specific linters are present, README files exists and other best practices
 
-Checks are written in `src/japr/check_providers/` and tests are written in `tests/scenarios` split by examples that meet the desired checks in `passes` and examples that fail the desired checks in `failures`. And templates used in fixes are stored in `src/japr/templates/`
+Checks are written in `src/mandate/check_providers/` and tests are written in `tests/scenarios` split by examples that meet the desired checks in `passes` and examples that fail the desired checks in `failures`. And templates used in fixes are stored in `src/mandate/templates/`
 
-When adding a new check it must also be added to `src/japr/check_providers/__init__.py` to ensure it is included
+When adding a new check it must also be added to `src/mandate/check_providers/__init__.py` to ensure it is included
 
 ## Build and Test Commands
 - Run commands withing poetry, e.g. `poetry run pytest`

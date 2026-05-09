@@ -13,10 +13,10 @@ RUN pip install "poetry==$POETRY_VERSION" \
   && apk add git \
   && git config --global --add safe.directory '*'
 
-WORKDIR /japr
-COPY . /japr
+WORKDIR /mandate
+COPY . /mandate
 
 RUN poetry config virtualenvs.create false \
   && poetry install --no-dev --no-interaction --no-ansi
 
-ENTRYPOINT ["poetry", "--quiet", "run", "japr", "/app"]
+ENTRYPOINT ["poetry", "--quiet", "run", "mandate", "/app"]

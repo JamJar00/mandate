@@ -1,14 +1,14 @@
 [tool.poetry]
-name = "Japr"
+name = "Mandate"
 version = "1.4.2"
 description = "A cross-language tool for rating the overall quality of open source, commercial and personal projects"
 authors = ["Jamie Read <hey@jread.dev>"]
 license = "MIT"
 readme = "README.md"
-packages = [{include = "japr", from = "src"}]
+packages = [{include = "mandate", from = "src"}]
 
 [tool.poetry.scripts]
-japr = "japr.japr:cli"
+mandate = "mandate.mandate:cli"
 generate_docs = "generate_ruleset_docs:generate"
 
 [tool.poetry.dependencies]

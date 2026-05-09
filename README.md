@@ -1,5 +1,5 @@
-# Jamie's Awesome Project Rater
-A cross-language tool for rating and enforcing the overall quality of projects by looking at tool & language setup
+# Mandate
+A cross-language tool for linting and enforcing the overall quality of projects by looking at tool & language setup
 
 It's a linter that makes sure you install linters (and some other stuff)
 
@@ -8,31 +8,31 @@ It's a linter that makes sure you install linters (and some other stuff)
 ## Installation
 Using pip:
 ```bash
-pip install japr
+pip install mandate
 ```
 
 Using [pipx](https://github.com/pypa/pipx) which will get you the latest, bleeding edge version:
 ```bash
-pipx install git+https://github.com/JamJar00/japr
+pipx install git+https://github.com/JamJar00/mandate
 ```
 
 Or you can use Docker:
 ```bash
-docker run --rm -v $(pwd):/app jamoyjamie/japr:v1.0.1
+docker run --rm -v $(pwd):/app jamoyjamie/mandate:v1.0.1
 ```
 
 ## Usage
 ```bash
-japr <directory> -t <project-type>
+mandate <directory> -t <project-type>
 ```
 
 For more options:
 ```bash
-japr <directory> [--summary] [--project-type <open-source|inner-source|team|personal>]
+mandate <directory> [--summary] [--project-type <open-source|inner-source|team|personal>]
 ```
 
 #### Project Type
-To run a check you need to tell Japr about the audience of your projects so it can select a good set of rules to apply. Most personal projects don't need a pull request template for example!
+To run a check you need to tell mandate about the audience of your projects so it can select a good set of rules to apply. Most personal projects don't need a pull request template for example!
 
 Select one of the following project types and pass on the command line via `-t`/`--project-type` or in the configuration file as in the section below.
 | Project Type | Description                                                                                                                                                    |
@@ -45,9 +45,9 @@ Select one of the following project types and pass on the command line via `-t`/
 ![Animation of a report and a fix](/animation.gif)
 
 ### Configuration
-Configuration is done mostly through a `.japr.yaml` file in the root of your repository.
+Configuration is done mostly through a `.mandate.yaml` file in the root of your repository.
 ```yaml
-# .japr.yaml
+# .mandate.yaml
 projectType: open-source
 ```
 The most useful thing to put in there is the project type so it doesn't need to be specified on the command line each time
@@ -55,7 +55,7 @@ The most useful thing to put in there is the project type so it doesn't need to 
 #### Suppressing Checks
 If you need to suppress a check then you can add an `override` section to your configuration file like so:
 ```yaml
-# .japr.yaml
+# .mandate.yaml
 override:
   - id: CI001
     suppress: true
@@ -64,14 +64,14 @@ override:
 #### Excluding Folders
 If you need to exclude a folder then you can add an `excludeDirs` section to your configuration file like so:
 ```yaml
-# .japr.yaml
+# .mandate.yaml
 excludeDirs:
   - dist
 ```
 A number of directories are excluded by default (e.g. `node_modules`)
 
 ## Supported Languages
-Japr will work for projects of all languages however there are additional checks for the following:
+Mandate will work for projects of all languages however there are additional checks for the following:
 - Python
 - C#
 - Javascript
@@ -84,18 +84,18 @@ The following table tracks the level of support for each language. Many language
 | Dependency Managers   | Poetry, Pipenv |    | NPM, Yarn | Cargo |           |
 
 ## Experimental Automatic Fixes
-Japr can automatically fix some issues when supplied the `--fix` flag. **This functionality is highly expermental**
+Mandate can automatically fix some issues when supplied the `--fix` flag. **This functionality is highly expermental**
 
 ## Development
 Pull requsts are welcome. Please read [the contributing guide first](./CONTRIBUTING.md).
 
-Building and running Japr from source should be relatively easy. Here are some of the commands you'll need:
+Building and running mandate from source should be relatively easy. Here are some of the commands you'll need:
 ```bash
 # Get dependencies and venvs setup
 poetry install
 
-# Run Japr
-poetry run japr
+# Run mandate
+poetry run mandate
 
 # Run the test suite
 poetry run pytest

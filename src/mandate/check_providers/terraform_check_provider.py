@@ -1,5 +1,5 @@
-from japr.check import Check, CheckProvider, CheckResult, Result, Severity
-import japr.util
+from mandate.check import Check, CheckProvider, CheckResult, Result, Severity
+import mandate.util
 from git import InvalidGitRepositoryError
 from git.repo import Repo
 import os
@@ -23,7 +23,7 @@ class TerraformCheckProvider(CheckProvider):
 
     def test(self, directory):
         terraform_locks = list(
-            japr.util.find_files_with_name(directory, ".terraform.lock.hcl")
+            mandate.util.find_files_with_name(directory, ".terraform.lock.hcl")
         )
 
         try:
@@ -79,7 +79,7 @@ class TerraformCheckProvider(CheckProvider):
             yield CheckResult("TF005", Result.NOT_APPLICABLE)
 
         terraform_state_files = list(
-            japr.util.find_files_with_extension(directory, ".tfstate")
+            mandate.util.find_files_with_extension(directory, ".tfstate")
         )
         if len(terraform_state_files) != 0:
             for terraform_state_file in terraform_state_files:
@@ -105,7 +105,7 @@ class TerraformCheckProvider(CheckProvider):
         else:
             yield CheckResult("TF006", Result.NOT_APPLICABLE)
 
-        terraform_files = list(japr.util.find_files_with_extension(directory, ".tf"))
+        terraform_files = list(mandate.util.find_files_with_extension(directory, ".tf"))
         terraform_dirs = set(
             [os.path.dirname(terraform_file) for terraform_file in terraform_files]
         )

@@ -1,5 +1,5 @@
-from japr.check import Check, CheckProvider, CheckResult, Result, Severity
-import japr.util
+from mandate.check import Check, CheckProvider, CheckResult, Result, Severity
+import mandate.util
 import platform
 
 
@@ -8,8 +8,8 @@ class ShellCheckProvider(CheckProvider):
         return "Shell"
 
     def test(self, directory):
-        executable_files = list(japr.util.find_executable_files(directory))
-        shebang_files = list(japr.util.find_files_with_shebang(directory))
+        executable_files = list(mandate.util.find_executable_files(directory))
+        shebang_files = list(mandate.util.find_files_with_shebang(directory))
 
         # Windows doesn't have a concept of executable files so skip these checks
         if platform.system() == "Windows" and len(executable_files) > 0:

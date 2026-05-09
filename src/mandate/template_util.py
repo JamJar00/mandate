@@ -13,7 +13,7 @@ def _convert_ssh_to_http(url):
 
 def template(template_file, directory):
     env = Environment(
-        loader=PackageLoader("japr"),
+        loader=PackageLoader("mandate"),
     )
     template = env.get_template(template_file)
 

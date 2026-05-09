@@ -1,18 +1,18 @@
 import argparse
-from japr.check_providers import check_providers
-from japr.check import Result, Severity
+from mandate.check_providers import check_providers
+from mandate.check import Result, Severity
 import json
 import os
 import sys
 import time
 import yaml
-import japr.util
+import mandate.util
 
 
 PROJECT_TYPES = ["open-source", "inner-source", "team", "personal"]
 
 
-class Japr:
+class Mandate:
     def __init__(self, is_summary=False, is_profile=False, fix=False, is_json=False):
         self.is_summary = is_summary
         self.is_profile = is_profile
@@ -160,8 +160,8 @@ class Japr:
             )
             return
 
-        if os.path.isfile(os.path.join(directory, ".japr.yaml")):
-            with open(os.path.join(directory, ".japr.yaml"), "r") as f:
+        if os.path.isfile(os.path.join(directory, ".mandate.yaml")):
+            with open(os.path.join(directory, ".mandate.yaml"), "r") as f:
                 data = yaml.safe_load(f) or {}
                 # Load suppressed checks if provided
                 suppressed_checks = [
@@ -176,8 +176,8 @@ class Japr:
                 # Allow configuring folders to exclude from scans via 'excludeDirs'
                 excluded = data.get("excludeDirs", [])
                 for o in excluded:
-                    if o and o not in japr.util.skip_directories:
-                        japr.util.skip_directories.append(o)
+                    if o and o not in mandate.util.skip_directories:
+                        mandate.util.skip_directories.append(o)
         else:
             suppressed_checks = []
 
@@ -185,7 +185,7 @@ class Japr:
             print(
                 (
                     "No project type specified. You can specify this with the -t flag"
-                    " or add to your .japr.yaml configuration file."
+                    " or add to your .mandate.yaml configuration file."
                 ),
                 file=sys.stderr,
             )
@@ -314,7 +314,7 @@ class Japr:
 
 def cli(args=None):
     parser = argparse.ArgumentParser(
-        prog="japr",
+        prog="mandate",
         description=(
             "A cross-language tool for rating the overall quality of open source,"
             " commercial and personal projects"
@@ -342,14 +342,14 @@ def cli(args=None):
 
     args = parser.parse_args(args)
 
-    japr = Japr(
+    mandate = Mandate(
         args.summary,
         args.profile,
         args.fix,
         args.json,
     )
 
-    if japr.check_directory(
+    if mandate.check_directory(
         args.directory,
         args.project_type,
     ):

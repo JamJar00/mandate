@@ -1,12 +1,12 @@
-from japr.check import Check, CheckProvider, CheckFix, CheckResult, Result, Severity
-import japr.template_util
+from mandate.check import Check, CheckProvider, CheckFix, CheckResult, Result, Severity
+import mandate.template_util
 import os
 
 
 class AddReadmeFix(CheckFix):
     def fix(self, directory, _):
         with open(os.path.join(directory, "README.md"), "w") as f:
-            f.write(japr.template_util.template("README.md", directory))
+            f.write(mandate.template_util.template("README.md", directory))
         return True
 
     @property

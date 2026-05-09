@@ -1,5 +1,5 @@
-from japr.check import Check, CheckProvider, CheckResult, Result, Severity
-import japr.util
+from mandate.check import Check, CheckProvider, CheckResult, Result, Severity
+import mandate.util
 import os
 import xml.etree.ElementTree as ET
 
@@ -72,7 +72,7 @@ class CSharpCheckProvider(CheckProvider):
         return "C#"
 
     def test(self, directory):
-        cs_projects = list(japr.util.find_files_with_extension(directory, "csproj"))
+        cs_projects = list(mandate.util.find_files_with_extension(directory, "csproj"))
 
         if len(cs_projects) != 0:
             for cs_project in cs_projects:

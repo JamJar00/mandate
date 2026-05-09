@@ -1,5 +1,5 @@
-from japr.check import Check, CheckProvider, CheckResult, Result, Severity
-import japr.util
+from mandate.check import Check, CheckProvider, CheckResult, Result, Severity
+import mandate.util
 from git import InvalidGitRepositoryError
 from git.repo import Repo
 import os
@@ -63,8 +63,8 @@ class GitCheckProvider(CheckProvider):
             else:
                 yield CheckResult("GI006", Result.PASSED)
 
-            shell_files = set(japr.util.find_executable_files(directory))
-            shell_files.update(japr.util.find_files_with_shebang(directory))
+            shell_files = set(mandate.util.find_executable_files(directory))
+            shell_files.update(mandate.util.find_files_with_shebang(directory))
 
             for shell_file in shell_files:
                 try:

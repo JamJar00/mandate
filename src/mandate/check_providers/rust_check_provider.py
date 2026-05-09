@@ -1,5 +1,5 @@
-from japr.check import Check, CheckProvider, CheckResult, Result, Severity
-import japr.util
+from mandate.check import Check, CheckProvider, CheckResult, Result, Severity
+import mandate.util
 from git import InvalidGitRepositoryError
 from git.repo import Repo
 import os
@@ -10,7 +10,7 @@ class RustCheckProvider(CheckProvider):
         return "Rust"
 
     def test(self, directory):
-        cargo_tomls = list(japr.util.find_files_with_name(directory, "Cargo.toml"))
+        cargo_tomls = list(mandate.util.find_files_with_name(directory, "Cargo.toml"))
 
         try:
             repo = Repo(directory, search_parent_directories=True)
