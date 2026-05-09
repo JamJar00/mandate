@@ -53,7 +53,7 @@ projectType: open-source
 The most useful thing to put in there is the project type so it doesn't need to be specified on the command line each time
 
 #### Suppressing Checks
-If you need to suppress a check then you can add an `overrides` second to your configuration file like so:
+If you need to suppress a check then you can add an `override` section to your configuration file like so:
 ```yaml
 # .japr.yaml
 override:
@@ -61,6 +61,15 @@ override:
     suppress: true
 ```
 Be aware that the project's score is always calculated against the full ruleset no matter what you suppress so that the score is comparable across projects of the same type.
+
+#### Excluding Folders
+If you need to exclude a folder then you can add an `excludeDirs` section to your configuration file like so:
+```yaml
+# .japr.yaml
+excludeDirs:
+  - dist
+```
+A number of directories are excluded by default (e.g. `node_modules`)
 
 ## Score
 Japr produces a score for each project between 0 and 5 stars. A project with a 5 star score is very commendable.

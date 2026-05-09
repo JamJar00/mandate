@@ -39,7 +39,7 @@ class AiInstructionCheckProvider(CheckProvider):
         ]
 
         # Basenames to search for anywhere in the tree
-        basenames = ["agents.md", "AI_INSTRUCTIONS.md", "INSTRUCTIONS.md"]
+        basenames = ["AGENTS.md", "AI_INSTRUCTIONS.md", "INSTRUCTIONS.md"]
 
         found_path = None
         for rel in exact_candidates:

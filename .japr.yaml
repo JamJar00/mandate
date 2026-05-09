@@ -1,1 +1,3 @@
 projectType: open-source
+excludeDirs:
+  - test/scenarios

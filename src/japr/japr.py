@@ -6,6 +6,7 @@ import os
 import sys
 import time
 import yaml
+import japr.util
 
 
 PROJECT_TYPES = ["open-source", "inner-source", "team", "personal"]
@@ -161,20 +162,22 @@ class Japr:
 
         if os.path.isfile(os.path.join(directory, ".japr.yaml")):
             with open(os.path.join(directory, ".japr.yaml"), "r") as f:
-                data = yaml.safe_load(f)
-                try:
-                    suppressed_checks = [
-                        override["id"]
-                        for override in data["override"]
-                        if override["suppress"]
-                    ]
-                except KeyError:
-                    suppressed_checks = []
+                data = yaml.safe_load(f) or {}
+                # Load suppressed checks if provided
+                suppressed_checks = [
+                    override["id"]
+                    for override in data.get("override", [])
+                    if override.get("suppress")
+                ]
+
                 if project_type is None:
-                    try:
-                        project_type = data["projectType"]
-                    except KeyError:
-                        project_type = None
+                    project_type = data.get("projectType")
+
+                # Allow configuring folders to exclude from scans via 'excludeDirs'
+                excluded = data.get("excludeDirs", [])
+                for o in excluded:
+                    if o and o not in japr.util.skip_directories:
+                        japr.util.skip_directories.append(o)
         else:
             suppressed_checks = []
 
