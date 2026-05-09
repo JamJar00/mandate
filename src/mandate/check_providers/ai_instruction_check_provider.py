@@ -6,7 +6,7 @@ import os
 
 class AddAiInstructionFix(CheckFix):
     def fix(self, directory, _):
-        path = os.path.join(directory, "agents.md")
+        path = os.path.join(directory, "AGENTS.md")
         try:
             with open(path, "w", encoding="utf-8") as f:
                 f.write(mandate.template_util.template("ai_instructions.md", directory))
@@ -16,11 +16,11 @@ class AddAiInstructionFix(CheckFix):
 
     @property
     def success_message(self):
-        return "Created agents.md from template. You should edit it to describe agent behavior, constraints, and contact points."
+        return "Created AGENTS.md from template. You should edit it to describe agent behavior, constraints, and contact points."
 
     @property
     def failure_message(self):
-        return "Tried to create agents.md but was unable to."
+        return "Tried to create AGENTS.md but was unable to."
 
 
 class AiInstructionCheckProvider(CheckProvider):
@@ -28,30 +28,15 @@ class AiInstructionCheckProvider(CheckProvider):
         return "AI Instructions"
 
     def test(self, directory):
-        # Candidate exact relative paths to prefer
-        exact_candidates = [
-            "AI_INSTRUCTIONS.md",
-            "docs/agents.md",
-            ".github/AI_INSTRUCTIONS.md",
-            ".ai/INSTRUCTIONS.md",
-        ]
-
         # Basenames to search for anywhere in the tree
         basenames = ["AGENTS.md", "AI_INSTRUCTIONS.md", "INSTRUCTIONS.md"]
 
         found_path = None
-        for rel in exact_candidates:
-            p = os.path.join(directory, rel)
-            if os.path.isfile(p):
-                found_path = p
+        for b in basenames:
+            matches = list(mandate.util.find_files_with_name(directory, b))
+            if matches:
+                found_path = os.path.join(directory, matches[0])
                 break
-
-        if not found_path:
-            for b in basenames:
-                matches = list(mandate.util.find_files_with_name(directory, b))
-                if matches:
-                    found_path = os.path.join(directory, matches[0])
-                    break
 
         yield CheckResult(
             "AI001",
